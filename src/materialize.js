@@ -2,7 +2,7 @@ var scripts = document.getElementsByTagName("script");
 var currentScriptPath = scripts[scripts.length-1].src;
 
 angular.module('materialize', [])
-	.directive('mtzUiRouter', function($rootScope) {
+	.directive('mtzUiRouter', ['$rootScope', function($rootScope) {
 		return {
 			restrict: 'A',
 			link: function(scope, element, attr) {
@@ -12,8 +12,8 @@ angular.module('materialize', [])
 				});
 			}
 		};
-	})
-    .directive('mtzRange', function() {
+	}])
+    .directive('mtzRange', [function() {
         return {
             restrict: 'A',
             scope: {
@@ -46,7 +46,7 @@ angular.module('materialize', [])
                 });
             }
         };
-    }).directive('mtzSelect', function($parse) {
+    }]).directive('mtzSelect', ['$parse', function($parse) {
 		var NG_OPTIONS_REGEXP = /^\s*([\s\S]+?)(?:\s+as\s+([\s\S]+?))?(?:\s+group\s+by\s+([\s\S]+?))?(?:\s+disable\s+when\s+([\s\S]+?))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+([\s\S]+?)(?:\s+track\s+by\s+([\s\S]+?))?$/;
 
         return {
@@ -74,7 +74,7 @@ angular.module('materialize', [])
 				}
             }
         };
-    }).directive('mtzTextarea', function() {
+    }]).directive('mtzTextarea', [function() {
         return {
             restrict: 'A',
             scope: {
@@ -86,7 +86,7 @@ angular.module('materialize', [])
                 });
             }
         };
-    }).directive('mtzModal', function() {
+    }]).directive('mtzModal', [function() {
         return {
             restrict: 'A',
             scope: {
@@ -186,7 +186,7 @@ angular.module('materialize', [])
                 }, scope.options.objectEquality);
             }
         };
-    }).directive('mtzPagination', function() {
+    }]).directive('mtzPagination', [function() {
         function computePages(scope) {
             var sw = Math.floor((scope.maxPages - 1) / 2);
             var beginPage = scope.page - sw;
@@ -269,7 +269,7 @@ angular.module('materialize', [])
                 };
             }
         };
-    }).directive('mtzDatePicker', function($locale) {
+    }]).directive('mtzDatePicker', ['$locale', function($locale) {
         function capitalizeFirstLetter(string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
         }
@@ -336,7 +336,7 @@ angular.module('materialize', [])
                 });
             }
         };
-    }).directive('mtzToast', function($interpolate, $timeout) {
+    }]).directive('mtzToast', ['$interpolate', '$timeout', function($interpolate, $timeout) {
 		return {
 			restrict: 'A',
 			scope: {
@@ -381,7 +381,7 @@ angular.module('materialize', [])
 				});
 			}
 		};
-	}).directive('mtzLoader', function($timeout) {
+	}]).directive('mtzLoader', ['$timeout', function($timeout) {
 		return {
 			restrict: 'A',
 			scope: {
@@ -447,7 +447,7 @@ angular.module('materialize', [])
 				});
 			}
 		};
-	}).directive('mtzSideNav', function() {
+	}]).directive('mtzSideNav', [function() {
 		return {
 			restrict: 'A',
 			scope: {
@@ -459,35 +459,35 @@ angular.module('materialize', [])
 				});
 			}
 		};
-	}).directive('mtzDropdown', function() {
+	}]).directive('mtzDropdown', [function() {
 		return {
 			restrict: 'A',
 			link: function(scope, element, attr) {
 				element.dropdown();
 			}
 		};
-	}).directive('mtzCollapsible', function() {
+	}]).directive('mtzCollapsible', [function() {
 		return {
 			restrict: 'A',
 			link: function(scope, element, attr) {
 				element.collapsible();
 			}
 		};
-	}).directive('mtzTabs', function() {
+	}]).directive('mtzTabs', [function() {
 		return {
 			restrict: 'A',
 			link: function(scope, element, attr) {
 				element.tabs();
 			}
 		};
-	}).directive('mtzLeanModal', function() {
+	}]).directive('mtzLeanModal', [function() {
 		return {
 			restrict: 'A',
 			link: function(scope, element, attr) {
 				element.leanModal();
 			}
 		};
-	}).directive('mtzAutocomplete', function($timeout) {
+	}]).directive('mtzAutocomplete', ['$timeout', function($timeout) {
 		return {
 			restrict: 'A',
 			scope: {
@@ -539,7 +539,7 @@ angular.module('materialize', [])
 				});
 			}
 		};
-	}).directive('mtzInfiniteScroll', function($timeout, $window) {
+	}]).directive('mtzInfiniteScroll', ['$timeout', '$window', function($timeout, $window) {
 		return {
             scope: {
                 handler: "&mtzInfiniteScroll",
@@ -583,7 +583,7 @@ angular.module('materialize', [])
             }
 
         };
-	}).directive('mtzLoginForm', function($timeout) {
+	}]).directive('mtzLoginForm', ['$timeout', function($timeout) {
 		return {
 			restrict: 'A',
 			scope: {
@@ -601,7 +601,7 @@ angular.module('materialize', [])
 				});
 			}
 		};
-	}).directive('mtzHourPicker', function($timeout) {
+	}]).directive('mtzHourPicker', ['$timeout', function($timeout) {
         return {
             restrict: 'A',
             templateUrl: currentScriptPath + '/materializeHourPicker.html',
@@ -642,7 +642,7 @@ angular.module('materialize', [])
                 });
             }
         };
-	}).directive('mtzMinutePicker', function($timeout) {
+	}]).directive('mtzMinutePicker', ['$timeout', function($timeout) {
         function approximateMinutes(base, value) {
             return value - value % base;
         }
@@ -692,4 +692,4 @@ angular.module('materialize', [])
                 });
             }
         };
-    });
+    }]);
