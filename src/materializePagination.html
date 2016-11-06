@@ -1,0 +1,6 @@
+<ul data-ng-hide="pagesArray.length <= 1" class="pagination">
+    <li ng-click="prevPage()" ng-class="{disabled: page == 0}" class="waves-effect"><a><i class="material-icons">chevron_left</i></a></li>
+    <li ng-click="gotoPage(pageIndex)" ng-repeat="pageIndex in pagesArray" ng-class='{active: pageIndex == page, "waves-effect": pageIndex != page}'><a>{{pageIndex + 1}}</a></li>
+    <li ng-click="nextPage()" ng-class="{disabled: page == pages - 1}" class="waves-effect"><a><i class="material-icons">chevron_right</i></a></li>
+</ul>
+<span data-ng-show="pagesArray.length <= 1">&nbsp;</span>
