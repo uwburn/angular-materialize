@@ -2,7 +2,12 @@
   "name": "angular-materialize",
   "version": "0.1.0",
   "description": "Angular.JS directives for Materialize",
-  "main": "dist/materialize.js",
+  "main": [
+      "dist/materialize.js",
+      "dist/materializeHourPicker.html",
+      "dist/materializeMinutePicker.html",
+      "dist/materializePagination.html"
+  ],
   "author": {
     "name": "Michele Tibaldi",
     "url": "https://gitlab.com/uwburn"
