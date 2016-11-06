@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "description": "Angular.JS directives for Materialize",
   "main": [
-      "dist/materialize.js",
-      "dist/materializeHourPicker.html",
-      "dist/materializeMinutePicker.html",
-      "dist/materializePagination.html"
+      "dist/angular-materialize.js",
+      "dist/hourPicker.html",
+      "dist/minutePicker.html",
+      "dist/pagination.html"
   ],
   "author": {
     "name": "Michele Tibaldi",

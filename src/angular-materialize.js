@@ -1,5 +1,8 @@
+(function() {
 var scripts = document.getElementsByTagName("script");
 var currentScriptPath = scripts[scripts.length-1].src;
+var scriptNameIndex = currentScriptPath.indexOf('angular-materialize.js');
+currentScriptPath = currentScriptPath.substring(0, scriptNameIndex);
 
 angular.module('materialize', [])
 	.directive('mtzUiRouter', ['$rootScope', function($rootScope) {
@@ -212,7 +215,7 @@ angular.module('materialize', [])
 
         return {
             restrict: 'A',
-            templateUrl: currentScriptPath + '/materializePagination.html',
+            templateUrl: currentScriptPath + '/pagination.html',
             scope : {
                 refresh: "=paginationRefresh",
                 pageSize: "=?paginationPageSize",
@@ -604,7 +607,7 @@ angular.module('materialize', [])
 	}]).directive('mtzHourPicker', ['$timeout', function($timeout) {
         return {
             restrict: 'A',
-            templateUrl: currentScriptPath + '/materializeHourPicker.html',
+            templateUrl: currentScriptPath + '/hourPicker.html',
             scope: {
                 date: "=hourPickerDate",
                 selectId: "@hourPickerId"
@@ -649,7 +652,7 @@ angular.module('materialize', [])
 
         return {
             restrict: 'A',
-            templateUrl: currentScriptPath + 'materializeMinutePicker.html',
+            templateUrl: currentScriptPath + 'minutePicker.html',
             scope: {
                 date: "=minutePickerDate",
                 selectId: "@minutePickerId",
@@ -693,3 +696,4 @@ angular.module('materialize', [])
             }
         };
     }]);
+})();
