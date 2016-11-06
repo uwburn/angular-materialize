@@ -240,7 +240,7 @@ angular.module('materialize', [])
                     scope.refresh(scope.page, scope.pageSize);
                 });
             },
-            controller: function($scope) {
+            controller: ['$scope', function($scope) {
                 $scope.prevPage = function() {
                     if ($scope.page <= 0)
                         return;
@@ -270,7 +270,7 @@ angular.module('materialize', [])
 
                     $scope.refresh($scope.page, $scope.pageSize);
                 };
-            }
+            }]
         };
     }]).directive('mtzDatePicker', ['$locale', function($locale) {
         function capitalizeFirstLetter(string) {
