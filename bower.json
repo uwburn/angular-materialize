@@ -1,6 +1,6 @@
 {
   "name": "angular-materialize",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Angular.JS directives for Materialize",
   "main": [
       "dist/angular-materialize.js"
@@ -30,6 +30,6 @@
   ],
   "dependencies": {
     "angular": "^1.5.8",
-    "materialize": "^0.97.7"
+    "materialize": "^0.97.8"
   }
 }

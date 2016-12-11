@@ -10,7 +10,7 @@ angular.module('materialize', [])
 			restrict: 'A',
 			link: function(scope, element, attr) {
 				$rootScope.$on('$stateChangeSuccess', function() {
-					$(".lean-overlay").remove();
+					$(".modal-overlay").remove();
 					$("html").css("overflow", "");
 				});
 			}
@@ -89,12 +89,12 @@ angular.module('materialize', [])
                 });
             }
         };
-    }]).directive('mtzModal', [function() {
+    }]).directive('mtzModalPlus', [function() {
         return {
             restrict: 'A',
             scope: {
                 trigger: "=modalTrigger",
-				ready: "=modalReady",
+				ready: "&modalReady",
 				complete: "&modalComplete",
                 watch: "=modalWatch",
                 group: "@modalGroup",
@@ -104,75 +104,47 @@ angular.module('materialize', [])
                 scope.options = scope.options || {};
                 scope.options.objectEquality = scope.options.objectEquality || false;
 
+                var triggerDefaultValue = angular.copy(scope.trigger);
                 var opened = false;
 
-				scope.$on(element[0].id + ':open', function(event, callbacks) {
+                element.modal({
+                    ready: function() {
+                        if (scope.ready)
+                            scope.ready();
+                    },
+                    complete: function() {
+                        opened = false;
+                        if(scope.complete)
+                            scope.complete();
+                        scope.$apply(function() {
+                            scope.trigger = triggerDefaultValue;
+                        });
+                    }
+                });
+
+				scope.$on(element[0].id + ':open', function(event) {
 					opened = true;
-
-					element.openModal({
-						ready: function() {
-							if (callbacks && callbacks.ready)
-								callbacks.ready();
-							if (scope.ready)
-								scope.ready();
-						},
-						complete: function() {
-							opened = false;
-							if (callbacks && callbacks.complete)
-								callbacks.complete();
-							if (scope.complete)
-								scope.complete();
-						}
-					});
+                    element.modal('open');
 				});
 
-				scope.$on(element[0].id + ':close', function(event, callbacks) {
-					element.closeModal({
-						complete: function() {
-							opened = false;
-							if (callbacks && callbacks.complete)
-								callbacks.complete();
-							if (scope.complete)
-								scope.complete();
-						}
-					});
+				scope.$on(element[0].id + ':close', function(event) {
+                    element.modal('close');
 				});
-
-				var triggerDefaultValue = angular.copy(scope.trigger);
 
                 scope.$watch('trigger', function() {
                     if (scope.trigger) {
-
                         if (opened)
                             return;
 
                         opened = true;
 
-                        element.openModal({
-                            complete: function() {
-								opened = false;
-								if(scope.complete)
-									scope.complete();
-								scope.$apply(function() {
-									scope.trigger = triggerDefaultValue;
-								});
-                            }
-                        });
+                        element.modal('open');
                     }
                     else {
                         if (!opened)
                             return;
 
-                        element.closeModal({
-                            complete: function() {
-								opened = false;
-								if(scope.complete)
-									scope.complete();
-								scope.$apply(function() {
-									scope.trigger = triggerDefaultValue;
-								});
-                            }
-                        });
+                        element.modal('close');
                     }
                 }, scope.options.objectEquality);
 
@@ -181,10 +153,10 @@ angular.module('materialize', [])
                         return;
 
                     if (scope.group !== undefined) {
-                        $("[modal-group='" + scope.mdlGroup + "']").find('.modal-trigger').leanModal();
+                        $("[modal-group='" + scope.mdlGroup + "']").find('.modal-trigger').modal();
                     }
                     else {
-                        element.find('.modal-trigger').leanModal();
+                        element.find('.modal-trigger').modal();
                     }
                 }, scope.options.objectEquality);
             }
@@ -483,11 +455,11 @@ angular.module('materialize', [])
 				element.tabs();
 			}
 		};
-	}]).directive('mtzLeanModal', [function() {
+	}]).directive('mtzModal', [function() {
 		return {
 			restrict: 'A',
 			link: function(scope, element, attr) {
-				element.leanModal();
+				element.modal();
 			}
 		};
 	}]).directive('mtzAutocomplete', ['$timeout', function($timeout) {
